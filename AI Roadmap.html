@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI & Automation Transformation Roadmap</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', 'Segoe UI', 'Sukhumvit Set', 'Kanit', sans-serif; 
+            background: #f8fafc; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column;
+            color: #1e293b;
+        }
+        .fullscreen-widget { 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            max-width: 100%;
+        }
+        .header {
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+            padding: 20px 40px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .header-title {
+            color: #0f172a;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .header-subtitle {
+            color: #64748b;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+        .slide-tabs {
+            display: flex;
+            gap: 10px;
+        }
+        .slide-tab {
+            padding: 10px 24px;
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            background: transparent;
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .slide-tab:hover {
+            border-color: #94a3b8;
+            color: #475569;
+        }
+        .slide-tab.active {
+            border-color: #2563eb;
+            background: #2563eb;
+            color: white;
+        }
+        .slide-tab.active.phase2 {
+            border-color: #7c3aed;
+            background: #7c3aed;
+        }
+        .slide-tab.active.org {
+            border-color: #059669;
+            background: #059669;
+        }
+        .content-area {
+            flex: 1;
+            padding: 32px 40px;
+            overflow-y: auto;
+            min-height: 0;
+            background: #f8fafc;
+        }
+        .slide-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .slide-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .badge {
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .badge-blue {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+        }
+        .badge-purple {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+        }
+        .badge-green {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+        .badge-orange {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transform: translateY(-1px);
+        }
+        .card-highlight-blue {
+            border: 2px solid #3b82f6;
+            background: linear-gradient(135deg, #eff6ff, #ffffff);
+        }
+        .card-highlight-purple {
+            border: 2px solid #8b5cf6;
+            background: linear-gradient(135deg, #f5f3ff, #ffffff);
+        }
+        .card-highlight-green {
+            border: 2px solid #10b981;
+            background: linear-gradient(135deg, #ecfdf5, #ffffff);
+        }
+        .card-highlight-orange {
+            border: 2px solid #f59e0b;
+            background: linear-gradient(135deg, #fffbeb, #ffffff);
+        }
+        .org-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+        .org-node {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 18px 24px;
+            text-align: center;
+            border: 2px solid;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            position: relative;
+            min-width: 220px;
+        }
+        .org-node.committee {
+            border-color: #dc2626;
+            background: linear-gradient(135deg, #fef2f2, #ffffff);
+        }
+        .org-node.hub {
+            border-color: #2563eb;
+            background: linear-gradient(135deg, #eff6ff, #ffffff);
+        }
+        .org-node.dept {
+            border-color: #059669;
+            background: linear-gradient(135deg, #ecfdf5, #ffffff);
+        }
+        .org-node.champion {
+            border-color: #7c3aed;
+            background: linear-gradient(135deg, #f5f3ff, #ffffff);
+        }
+        .org-icon {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+        .org-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin: 0 0 4px 0;
+        }
+        .org-title.committee { color: #dc2626; }
+        .org-title.hub { color: #2563eb; }
+        .org-title.dept { color: #059669; }
+        .org-title.champion { color: #7c3aed; }
+        .org-subtitle {
+            font-size: 12px;
+            color: #64748b;
+            margin: 0;
+        }
+        .org-connector {
+            width: 2px;
+            height: 30px;
+            background: #cbd5e1;
+        }
+        .safe-zone-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid #f59e0b;
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #92400e;
+        }
+        .timeline-container {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            gap: 0;
+            margin-bottom: 32px;
+        }
+        .phase-box {
+            flex: 1;
+            max-width: 400px;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .phase-box.p1 { border: 2px solid #3b82f6; }
+        .phase-box.p2 { border: 2px solid #8b5cf6; }
+        .phase-label {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            padding: 3px 14px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            color: white;
+        }
+        .phase-label.p1 { background: #3b82f6; }
+        .phase-label.p2 { background: #8b5cf6; }
+        .phase-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 10px 0 12px 0;
+        }
+        .phase-title.p1 { color: #2563eb; }
+        .phase-title.p2 { color: #7c3aed; }
+        .phase-period {
+            color: #475569;
+            font-size: 14px;
+            margin: 0 0 14px 0;
+        }
+        .phase-list {
+            color: #475569;
+            font-size: 13px;
+            line-height: 1.9;
+            margin: 0;
+            padding-left: 18px;
+        }
+        .phase-target {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 10px;
+            border-left: 3px solid;
+        }
+        .phase-target.p1 {
+            background: #eff6ff;
+            border-left-color: #3b82f6;
+        }
+        .phase-target.p2 {
+            background: #f5f3ff;
+            border-left-color: #8b5cf6;
+        }
+        .phase-target-text {
+            font-size: 13px;
+            margin: 0;
+            font-weight: 600;
+        }
+        .phase-target-text.p1 { color: #2563eb; }
+        .phase-target-text.p2 { color: #7c3aed; }
+        .arrow-between {
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+        }
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .pillar-card {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 22px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        .pillar-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+        .pillar-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .pillar-title {
+            color: #0f172a;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0;
+        }
+        .pillar-desc {
+            color: #64748b;
+            font-size: 12px;
+            margin: 6px 0 0 0;
+        }
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .card-icon {
+            font-size: 24px;
+        }
+        .card-title {
+            color: #0f172a;
+            font-size: 16px;
+            margin: 0;
+            font-weight: 700;
+        }
+        .card-title.blue { color: #2563eb; }
+        .card-title.purple { color: #7c3aed; }
+        .card-title.green { color: #059669; }
+        .card-list {
+            color: #475569;
+            font-size: 13.5px;
+            line-height: 1.9;
+            margin: 0;
+            padding-left: 20px;
+        }
+        .card-list li { margin-bottom: 4px; }
+        .sub-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .sub-box {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 14px;
+            border: 1px solid #e2e8f0;
+        }
+        .sub-label {
+            font-size: 12px;
+            font-weight: 700;
+            margin: 0 0 8px 0;
+        }
+        .sub-label.blue { color: #2563eb; }
+        .sub-label.purple { color: #7c3aed; }
+        .sub-text {
+            color: #64748b;
+            font-size: 12.5px;
+            margin: 0;
+            line-height: 1.6;
+        }
+        .delivery-grid {
+            display: flex;
+            gap: 12px;
+        }
+        .delivery-box {
+            flex: 1;
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 14px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        .delivery-title {
+            color: #0f172a;
+            font-size: 13px;
+            margin: 0;
+            font-weight: 600;
+        }
+        .delivery-detail {
+            color: #64748b;
+            font-size: 12px;
+            margin: 6px 0 0 0;
+        }
+        .target-card {
+            background: linear-gradient(135deg, #eff6ff, #ffffff);
+            border: 2px solid #3b82f6;
+            border-radius: 14px;
+            padding: 20px;
+        }
+        .target-card.p2 {
+            background: linear-gradient(135deg, #f5f3ff, #ffffff);
+            border: 2px solid #8b5cf6;
+        }
+        .target-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .target-icon {
+            font-size: 26px;
+        }
+        .target-title {
+            font-size: 15px;
+            margin: 0;
+            font-weight: 700;
+        }
+        .target-title.blue { color: #2563eb; }
+        .target-title.purple { color: #7c3aed; }
+        .target-main {
+            color: #0f172a;
+            font-size: 15px;
+            margin: 0;
+            font-weight: 600;
+        }
+        .target-sub {
+            color: #475569;
+            font-size: 13.5px;
+            margin: 8px 0 0 0;
+        }
+        .target-sub strong { color: #2563eb; }
+        .target-sub strong.purple { color: #7c3aed; }
+        .impact-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .impact-tag {
+            padding: 5px 14px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .tag-revenue {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+        }
+        .tag-cost {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+        .tag-efficiency {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #93c5fd;
+        }
+        .timeline-visual {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 22px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .timeline-visual-title {
+            color: #0f172a;
+            font-size: 15px;
+            margin: 0 0 18px 0;
+            font-weight: 700;
+        }
+        .timeline-track {
+            position: relative;
+            padding-left: 28px;
+        }
+        .timeline-line {
+            position: absolute;
+            left: 8px;
+            top: 4px;
+            bottom: 4px;
+            width: 3px;
+            background: linear-gradient(180deg, #3b82f6, #8b5cf6, #10b981);
+            border-radius: 2px;
+        }
+        .timeline-item {
+            margin-bottom: 18px;
+            position: relative;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -24px;
+            top: 2px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 0 2px #e2e8f0;
+        }
+        .timeline-dot.blue { background: #3b82f6; }
+        .timeline-dot.purple { background: #8b5cf6; }
+        .timeline-dot.green { background: #10b981; }
+        .timeline-label {
+            font-size: 13px;
+            font-weight: 700;
+            margin: 0;
+        }
+        .timeline-label.blue { color: #2563eb; }
+        .timeline-label.purple { color: #7c3aed; }
+        .timeline-label.green { color: #059669; }
+        .timeline-desc {
+            color: #64748b;
+            font-size: 12.5px;
+            margin: 3px 0 0 0;
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .metric-box {
+            text-align: center;
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .metric-value {
+            color: #0f172a;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+        }
+        .metric-label {
+            color: #64748b;
+            font-size: 12px;
+            margin: 6px 0 0 0;
+        }
+        .metrics-card {
+            background: linear-gradient(135deg, #ecfdf5, #ffffff);
+            border: 1px solid #a7f3d0;
+            border-radius: 14px;
+            padding: 20px;
+        }
+        .metrics-card-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .metrics-card-icon {
+            font-size: 22px;
+        }
+        .metrics-card-heading {
+            color: #059669;
+            font-size: 15px;
+            margin: 0;
+            font-weight: 700;
+        }
+        .quote-box {
+            margin-top: 28px;
+            background: linear-gradient(90deg, #eff6ff, #f5f3ff);
+            border: 2px dashed #bfdbfe;
+            border-radius: 12px;
+            padding: 18px 24px;
+            text-align: center;
+        }
+        .quote-text {
+            color: #1e40af;
+            font-size: 15px;
+            margin: 0;
+            font-weight: 500;
+            font-style: italic;
+        }
+        .two-way-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border: 1px dashed #cbd5e1;
+            margin: 8px 0;
+        }
+        .two-way-text {
+            color: #64748b;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .role-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+        .role-tag-red {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .role-tag-blue {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .role-tag-green {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .role-tag-purple {
+            background: #ede9fe;
+            color: #5b21b6;
+        }
+        .footer {
+            background: #ffffff;
+            padding: 14px 40px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .footer-text {
+            color: #94a3b8;
+            font-size: 12px;
+            margin: 0;
+        }
+        @media (max-width: 900px) {
+            .detail-grid, .pillars-grid { grid-template-columns: 1fr; }
+            .timeline-container { flex-direction: column; }
+            .arrow-between { transform: rotate(90deg); padding: 16px 0; }
+            .header { flex-direction: column; gap: 16px; }
+            .content-area { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="fullscreen-widget">
+        <div class="header">
+            <div>
+                <h1 class="header-title">🚀 AI & Automation Transformation Roadmap</h1>
+                <p class="header-subtitle">Executive Presentation for CEO | 2027 Strategic Initiative</p>
+            </div>
+            <div class="slide-tabs">
+                <button class="slide-tab active" onclick="showSlide(0)" id="tab-0">Summary</button>
+                <button class="slide-tab" onclick="showSlide(1)" id="tab-1">Structure</button>
+                <button class="slide-tab" onclick="showSlide(2)" id="tab-2">Phase 1</button>
+                <button class="slide-tab" onclick="showSlide(3)" id="tab-3">Phase 2</button>
+            </div>
+        </div>
+        <div class="content-area">
+            <div id="slide-0" class="slide-content active">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <span class="badge badge-blue">Executive Summary</span>
+                </div>
+                <h2 style="color: #0f172a; font-size: 32px; text-align: center; margin: 0 0 8px 0; font-weight: 700;">AI & Automation Transformation</h2>
+                <p style="color: #64748b; text-align: center; font-size: 16px; margin: 0 0 32px 0;">Two phases, one governed hub — clear outputs at every stage.</p>
+                <div class="timeline-container">
+                    <div class="phase-box p1">
+                        <div class="phase-label p1">PHASE 1</div>
+                        <h3 class="phase-title p1">Build the Foundation</h3>
+                        <p class="phase-period"><strong>NOW – Q2'27</strong> | ~6–9 Months</p>
+                        <ul class="phase-list">
+                            <li>Committee + Hub stood up</li>
+                            <li>Governance framework live</li>
+                            <li>Basic + advanced training rolled out</li>
+                            <li>1 automation/AI tool per department</li>
+                        </ul>
+                        <div class="phase-target p1">
+                            <p class="phase-target-text p1">🎯 OUTPUT: ≥ 1 automation/AI tool live in every department — <strong>30 Depts + 1 Secretary Group</strong></p>
+                        </div>
+                    </div>
+                    <div class="arrow-between">
+                        <svg width="48" height="28" viewBox="0 0 48 28" fill="none">
+                            <path d="M0 14h40m0 0l-10-10m10 10l-10 10" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="phase-box p2">
+                        <div class="phase-label p2">PHASE 2</div>
+                        <h3 class="phase-title p2">Expand Scope, Elevate Impact</h3>
+                        <p class="phase-period"><strong>Q3'27 – Q4'27</strong> | 6 Months</p>
+                        <ul class="phase-list">
+                            <li>Champion acts as Hub-in-department</li>
+                            <li>Governance reviewed & refreshed</li>
+                            <li>Use cases expand to complex, high-value work</li>
+                            <li>Revenue generation & cost reduction focus</li>
+                        </ul>
+                        <div class="phase-target p2">
+                            <p class="phase-target-text p2">🎯 OUTPUT: Trained AI Champion in every department + use cases generating revenue or reducing cost</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pillars-grid">
+                    <div class="pillar-card">
+                        <div class="pillar-icon">👥</div>
+                        <p class="pillar-title">Team & Hub</p>
+                        <p class="pillar-desc">AI Committee + Hub + Champions</p>
+                    </div>
+                    <div class="pillar-card">
+                        <div class="pillar-icon">🛡️</div>
+                        <p class="pillar-title">Governance</p>
+                        <p class="pillar-desc">Security, Data, Policy, Licensing</p>
+                    </div>
+                    <div class="pillar-card">
+                        <div class="pillar-icon">📚</div>
+                        <p class="pillar-title">Knowledge</p>
+                        <p class="pillar-desc">Training & Awareness Programs</p>
+                    </div>
+                    <div class="pillar-card">
+                        <div class="pillar-icon">⚡</div>
+                        <p class="pillar-title">Use Cases</p>
+                        <p class="pillar-desc">Automation + AI Tools + Impact</p>
+                    </div>
+                </div>
+                <div class="quote-box">
+                    <p class="quote-text">💡 "Transform every department into an AI-enabled unit — starting with awareness, ending with measurable business impact."</p>
+                </div>
+            </div>
+            <div id="slide-1" class="slide-content">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <span class="badge badge-green">Operating Structure</span>
+                </div>
+                <h2 style="color: #0f172a; font-size: 28px; text-align: center; margin: 0 0 4px 0; font-weight: 700;">How the AI & Automation Transformation Works</h2>
+                <p style="color: #64748b; text-align: center; font-size: 14px; margin: 0 0 28px 0;">Clear roles, governed flow, and a safe space for innovation</p>
+                <div class="org-chart">
+                    <div class="org-node committee">
+                        <div class="org-icon">🏛️</div>
+                        <p class="org-title committee">AI Committee</p>
+                        <p class="org-subtitle">CEO · CFO · Regulator</p>
+                        <span class="role-tag role-tag-red">SPONSOR & DIRECTION</span>
+                    </div>
+                    <div class="org-connector"></div>
+                    <div class="org-node hub">
+                        <div class="org-icon">⚙️</div>
+                        <p class="org-title hub">AI & Automation Hub</p>
+                        <p class="org-subtitle">Biz. Transformation + IT + Champion</p>
+                        <span class="role-tag role-tag-blue">EXECUTE & ENABLE</span>
+                    </div>
+                    <div style="margin: 12px 0;">
+                        <span class="safe-zone-badge">🔓 Safe Zone / Open Area — Experiment Freely</span>
+                    </div>
+                    <div class="org-connector"></div>
+                    <div class="two-way-flow">
+                        <span style="font-size: 16px;">↔️</span>
+                        <span class="two-way-text">Ideas, tools & feedback flow both ways</span>
+                        <span style="font-size: 16px;">↔️</span>
+                    </div>
+                    <div class="org-connector"></div>
+                    <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                        <div class="org-node dept" style="min-width: 200px;">
+                            <div class="org-icon">🏢</div>
+                            <p class="org-title dept">Departments</p>
+                            <p class="org-subtitle">30 Depts + 1 Secretary Group</p>
+                            <span class="role-tag role-tag-green">ADOPT & COMPLY</span>
+                        </div>
+                        <div class="org-node champion" style="min-width: 200px;">
+                            <div class="org-icon">🏆</div>
+                            <p class="org-title champion">AI Champion</p>
+                            <p class="org-subtitle">Starting Q3'27</p>
+                            <span class="role-tag role-tag-purple">HUB-IN-DEPT</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="card card-highlight-green">
+                        <div class="card-header">
+                            <span class="card-icon">🏛️</span>
+                            <h3 class="card-title green">AI Committee — Responsibilities</h3>
+                        </div>
+                        <ul class="card-list">
+                            <li>Review & approve governance; oversee compliance</li>
+                            <li>Approve projects requiring additional cost</li>
+                            <li>Drive management support; remove obstacles</li>
+                            <li>Sponsors & sets strategic direction</li>
+                        </ul>
+                    </div>
+                    <div class="card card-highlight-blue">
+                        <div class="card-header">
+                            <span class="card-icon">⚙️</span>
+                            <h3 class="card-title blue">AI & Automation Hub — Functions</h3>
+                        </div>
+                        <ul class="card-list">
+                            <li>Draft AI & Automation governance</li>
+                            <li>Plan implementation and training</li>
+                            <li>Consult & drive department adoption; track execution</li>
+                            <li>Change management for awareness, knowledge & culture</li>
+                            <li>Report progress to Committee, management & employees</li>
+                        </ul>
+                    </div>
+                    <div class="card card-highlight-orange" style="grid-column: 1 / -1;">
+                        <div class="card-header">
+                            <span class="card-icon">🔓</span>
+                            <h3 class="card-title" style="color: #b45309;">Safe Zone / Open Area — A Space for Creativity & Learning</h3>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px;">
+                            <div style="text-align: center; padding: 14px;">
+                                <div style="font-size: 32px; margin-bottom: 8px;">💡</div>
+                                <p style="color: #0f172a; font-size: 13px; font-weight: 600; margin: 0;">Experiment Freely</p>
+                                <p style="color: #64748b; font-size: 12px; margin: 4px 0 0 0;">Test new AI tools without fear of failure</p>
+                            </div>
+                            <div style="text-align: center; padding: 14px;">
+                                <div style="font-size: 32px; margin-bottom: 8px;">🎨</div>
+                                <p style="color: #0f172a; font-size: 13px; font-weight: 600; margin: 0;">Creative Thinking</p>
+                                <p style="color: #64748b; font-size: 12px; margin: 4px 0 0 0;">Encourage innovative use-case ideas</p>
+                            </div>
+                            <div style="text-align: center; padding: 14px;">
+                                <div style="font-size: 32px; margin-bottom: 8px;">📖</div>
+                                <p style="color: #0f172a; font-size: 13px; font-weight: 600; margin: 0;">Continuous Learning</p>
+                                <p style="color: #64748b; font-size: 12px; margin: 4px 0 0 0;">Learn new tools & share knowledge openly</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-highlight-green">
+                        <div class="card-header">
+                            <span class="card-icon">🏢</span>
+                            <h3 class="card-title green">Departments — Responsibilities</h3>
+                        </div>
+                        <ul class="card-list">
+                            <li>Adopt AI/automation tools to improve process efficiency & quality</li>
+                            <li>Comply with the governance framework</li>
+                            <li>Identify and propose use cases for their team</li>
+                        </ul>
+                    </div>
+                    <div class="card card-highlight-purple">
+                        <div class="card-header">
+                            <span class="card-icon">🏆</span>
+                            <h3 class="card-title purple">AI Champion — Phase 2 Role</h3>
+                        </div>
+                        <ul class="card-list">
+                            <li>Acts as the <strong style="color: #7c3aed;">AI Hub within their own department</strong></li>
+                            <li>Brings the Hub model closer to daily work</li>
+                            <li>Drives adoption and mentors team members</li>
+                            <li>Identifies new opportunities and reports back</li>
+                        </ul>
+                        <p style="color: #7c3aed; font-size: 12px; margin: 10px 0 0 0; font-weight: 600; font-style: italic;">🎯 Starting Q3'27 — embedded within each department</p>
+                    </div>
+                </div>
+            </div>
+            <div id="slide-2" class="slide-content">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <span class="badge badge-blue">Phase 1: Foundation</span>
+                </div>
+                <h2 style="color: #0f172a; font-size: 28px; text-align: center; margin: 0 0 4px 0; font-weight: 700;">Building the Foundation</h2>
+                <p style="color: #2563eb; text-align: center; font-size: 15px; margin: 0 0 28px 0; font-weight: 600;">NOW – Q2'27 | ~6–9 Months</p>
+                <div class="detail-grid">
+                    <div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">🏛️</span>
+                                <h3 class="card-title">Governance & Sponsorship</h3>
+                            </div>
+                            <ul class="card-list">
+                                <li>Committee sponsored by <strong>CEO, CFO, and Regulator</strong></li>
+                                <li>Approves new investment & budget</li>
+                                <li>Hub operates as an <strong>open space / safe zone</strong> for experimentation</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">⚙️</span>
+                                <h3 class="card-title blue">Hub Operating Model</h3>
+                            </div>
+                            <p style="color: #475569; font-size: 13px; margin: 0 0 10px 0;"><strong>AI & Automation Hub</strong> = Biz. Transformation + IT + Champion function</p>
+                            <ul class="card-list">
+                                <li>Consults on process & tool selection</li>
+                                <li>Monitors progress & results</li>
+                                <li>Shares AI success cases and demos</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">📢</span>
+                                <h3 class="card-title">Reporting & Cadence</h3>
+                            </div>
+                            <ul class="card-list">
+                                <li>Reports to management and updates employees regularly</li>
+                                <li><strong>Onsite/online sessions:</strong> Mon–Wed, 1:30–4:30pm</li>
+                                <li><strong>Standing MS Chat channel</strong> for continuous support</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">📚</span>
+                                <h3 class="card-title">Knowledge Training</h3>
+                            </div>
+                            <div class="sub-grid">
+                                <div class="sub-box">
+                                    <p class="sub-label blue">BASIC</p>
+                                    <p class="sub-text">What tools are available in the market</p>
+                                </div>
+                                <div class="sub-box">
+                                    <p class="sub-label purple">ADVANCED</p>
+                                    <p class="sub-text">How to use each tool in real work</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">🛡️</span>
+                                <h3 class="card-title">Governance Framework</h3>
+                            </div>
+                            <ul class="card-list">
+                                <li><strong>Security:</strong> Do's & don'ts</li>
+                                <li><strong>Data:</strong> Management & database</li>
+                                <li><strong>Connection:</strong> Internal/external links</li>
+                                <li><strong>Licensing:</strong> Individual vs. enterprise</li>
+                                <li><strong>Tools:</strong> Approved vs. prohibited list</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">📊</span>
+                                <h3 class="card-title">Change Management</h3>
+                            </div>
+                            <ul class="card-list">
+                                <li>Dashboard for tracking & visibility</li>
+                                <li>Quarterly MTM / meeting cadence</li>
+                                <li>Questionnaire & survey feedback</li>
+                                <li><strong>PRIDE team</strong> to build awareness and keep momentum</li>
+                            </ul>
+                        </div>
+                        <div class="target-card">
+                            <div class="target-header">
+                                <span class="target-icon">🎯</span>
+                                <h3 class="target-title blue">Target by Q2'27</h3>
+                            </div>
+                            <p class="target-main">At least 1 automation or AI tool live in every department</p>
+                            <p class="target-sub">Covering <strong>30 Departments</strong> + <strong>1 Secretary Group</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="slide-3" class="slide-content">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <span class="badge badge-purple">Phase 2: Expansion</span>
+                </div>
+                <h2 style="color: #0f172a; font-size: 28px; text-align: center; margin: 0 0 4px 0; font-weight: 700;">Expand Scope, Elevate Impact</h2>
+                <p style="color: #7c3aed; text-align: center; font-size: 15px; margin: 0 0 28px 0; font-weight: 600;">Q3'27 – Q4'27 | 6 Months</p>
+                <p style="color: #64748b; text-align: center; font-size: 13px; margin: 0 0 24px 0; font-style: italic;">Builds directly on the Phase 1 foundation — same committee and governance model, now going deeper.</p>
+                <div class="detail-grid">
+                    <div>
+                        <div class="card card-highlight-purple">
+                            <div class="card-header">
+                                <span class="card-icon">🏆</span>
+                                <h3 class="card-title purple">AI Champion Evolution</h3>
+                            </div>
+                            <p style="color: #475569; font-size: 13.5px; margin: 0 0 14px 0; line-height: 1.7;">Where possible, the AI Champion acts as the <strong style="color: #7c3aed;">AI Hub within their own department</strong> — bringing the Hub model closer to daily work.</p>
+                            <div style="background: #f5f3ff; border-radius: 10px; padding: 14px; border-left: 3px solid #8b5cf6;">
+                                <p style="color: #5b21b6; font-size: 12.5px; margin: 0; font-weight: 500;">🎯 Goal: Create internal AI evangelists who drive adoption, answer questions, and identify new opportunities within their teams.</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">🔄</span>
+                                <h3 class="card-title">Governance Review</h3>
+                            </div>
+                            <ul class="card-list">
+                                <li>Revisit and refresh security, data, connection, and licensing policies</li>
+                                <li>Based on Phase 1 learnings and real use-case experience</li>
+                                <li>Expand approved tools list as market evolves</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-icon">📖</span>
+                                <h3 class="card-title">Knowledge Refresh</h3>
+                            </div>
+                            <div class="sub-grid">
+                                <div class="sub-box">
+                                    <p class="sub-label blue">🆕 NEW TOOLS</p>
+                                    <p class="sub-text">Train new tools for all employees as they reach the market</p>
+                                </div>
+                                <div class="sub-box">
+                                    <p class="sub-label purple">🔄 RE-TRAIN</p>
+                                    <p class="sub-text">Re-train and upskill AI Champions to keep pace</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card card-highlight-purple">
+                            <div class="card-header">
+                                <span class="card-icon">🚀</span>
+                                <h3 class="card-title purple">Use Case Expansion</h3>
+                            </div>
+                            <p style="color: #475569; font-size: 13.5px; margin: 0 0 14px 0; line-height: 1.7;">Move beyond basic automation to <strong style="color: #7c3aed;">more complex use cases</strong>, with a clear shift toward generating revenue or reducing cost.</p>
+                            <div style="background: #f5f3ff; border-radius: 10px; padding: 16px; margin-bottom: 12px;">
+                                <p style="color: #0f172a; font-size: 13px; margin: 0 0 10px 0; font-weight: 600;">💰 Business Impact Focus:</p>
+                                <div class="impact-tags">
+                                    <span class="impact-tag tag-revenue">Generate Revenue</span>
+                                    <span class="impact-tag tag-cost">Reduce Cost</span>
+                                    <span class="impact-tag tag-efficiency">Improve Efficiency</span>
+                                </div>
+                            </div>
+                            <p style="color: #64748b; font-size: 12px; margin: 0; line-height: 1.7;">Examples: Predictive analytics, intelligent document processing, customer service automation, supply chain optimization, sales forecasting.</p>
+                        </div>
+                        <div class="timeline-visual">
+                            <h3 class="timeline-visual-title">📈 Full Transformation Journey</h3>
+                            <div class="timeline-track">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot blue"></div>
+                                    <p class="timeline-label blue">NOW – Q2'27 — FOUNDATION</p>
+                                    <p class="timeline-desc">Committee + Hub, Governance, Training, 1 Tool/Dept</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot purple"></div>
+                                    <p class="timeline-label purple">Q3'27 — EXPANSION</p>
+                                    <p class="timeline-desc">AI Champions, New Tools, Complex Cases</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot green"></div>
+                                    <p class="timeline-label green">Q4'27 — IMPACT</p>
+                                    <p class="timeline-desc">Measurable Revenue & Cost Savings</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="metrics-card">
+                            <div class="metrics-card-title">
+                                <span class="metrics-card-icon">📊</span>
+                                <h3 class="metrics-card-heading">Phase 2 Output</h3>
+                            </div>
+                            <div class="metrics-grid">
+                                <div class="metric-box">
+                                    <p class="metric-value">30+</p>
+                                    <p class="metric-label">Trained AI Champions</p>
+                                </div>
+                                <div class="metric-box">
+                                    <p class="metric-value">100%</p>
+                                    <p class="metric-label">Dept Coverage</p>
+                                </div>
+                                <div class="metric-box">
+                                    <p class="metric-value">TBD</p>
+                                    <p class="metric-label">Revenue Generated</p>
+                                </div>
+                                <div class="metric-box">
+                                    <p class="metric-value">TBD</p>
+                                    <p class="metric-label">Cost Reduction %</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p class="footer-text">AI & Automation Transformation | Confidential</p>
+            <p class="footer-text">Slide <span id="slide-number">1</span> of 4</p>
+        </div>
+    </div>
+    <script>
+        function showSlide(index) {
+            document.querySelectorAll('.slide-content').forEach(el => el.classList.remove('active'));
+            document.getElementById('slide-' + index).classList.add('active');
+            document.getElementById('slide-number').textContent = index + 1;
+            document.querySelectorAll('.slide-tab').forEach((tab, i) => {
+                tab.classList.remove('active', 'phase2', 'org');
+                if (i === index) {
+                    tab.classList.add('active');
+                    if (i === 3) tab.classList.add('phase2');
+                    if (i === 1) tab.classList.add('org');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
